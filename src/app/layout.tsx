@@ -1,21 +1,44 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
+
 export const metadata: Metadata = {
-  title: "NeuralForge — The Trust Layer for AI Agents",
-  description: "Verify AI agent decisions with multi-model consensus scoring, domain drift detection, and consent-gated execution. The trust layer that sits between AI agents and the real world.",
-  keywords: ["AI verification", "AI trust", "PSZN", "consensus scoring", "AI agents", "NeuralForge", "domain drift", "AI safety"],
+  title: "NeuralForge.fm | The Trust Layer for AI Agents",
+  description:
+    "Verify AI agent decisions with PSZN consensus, domain drift detection, and consent-gated execution.",
+  keywords: [
+    "AI verification",
+    "AI trust",
+    "PSZN",
+    "consensus scoring",
+    "AI agents",
+    "NeuralForge",
+    "domain drift",
+    "AI safety",
+  ],
   openGraph: {
-    title: "NeuralForge — The Trust Layer for AI Agents",
-    description: "Multi-model consensus scoring. Domain drift detection. Consent-gated execution. Trust, verified.",
+    title: "NeuralForge.fm | The Trust Layer for AI Agents",
+    description:
+      "Multi-model consensus scoring. Domain drift detection. Consent-gated execution.",
     url: "https://neuralforge.fm",
-    siteName: "NeuralForge",
+    siteName: "NeuralForge.fm",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NeuralForge — The Trust Layer for AI Agents",
-    description: "Multi-model consensus scoring. Domain drift detection. Consent-gated execution.",
+    title: "NeuralForge.fm | The Trust Layer for AI Agents",
+    description:
+      "Multi-model consensus scoring. Domain drift detection. Consent-gated execution.",
   },
 };
 
@@ -25,15 +48,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-      </head>
-      <body className="noise-overlay grid-bg antialiased">
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} scroll-smooth`}
+    >
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

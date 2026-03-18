@@ -1,120 +1,124 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { List, X } from "@phosphor-icons/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { MagneticLink } from "@/components/MagneticButton";
+import SiteLogo from "@/components/SiteLogo";
 
 const navLinks = [
-  { href: '#problem', label: 'Problem' },
-  { href: '#how-it-works', label: 'How It Works' },
-  { href: '#pszn', label: 'PSZN Engine' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#enterprise', label: 'Enterprise' },
-  { href: '#ecosystem', label: 'Ecosystem' },
+  { href: "#problem", label: "Risk" },
+  { href: "#how-it-works", label: "Flow" },
+  { href: "#pszn", label: "Engine" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#enterprise", label: "Enterprise" },
+  { href: "#ecosystem", label: "Stack" },
 ];
+
+const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 32);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-forge-black/80 backdrop-blur-xl border-b border-forge-border/50'
-            : 'bg-transparent'
-        }`}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={spring}
+        className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-6"
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-forge-cyan to-forge-purple flex items-center justify-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <span className="text-lg font-bold text-white tracking-tight">
-              Neural<span className="text-forge-cyan">Forge</span>
-            </span>
+        <div
+          className={`section-shell glass-panel flex items-center justify-between rounded-[1.75rem] px-4 py-3 md:px-6 ${
+            scrolled ? "border-slate-200/70 bg-white/80" : "border-white/10 bg-white/60"
+          }`}
+        >
+          <a href="#" className="shrink-0">
+            <SiteLogo />
           </a>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-2 lg:flex">
             {navLinks.map((link) => (
-              <a
+              <MagneticLink
                 key={link.href}
                 href={link.href}
-                className="text-sm text-forge-muted hover:text-forge-cyan transition-colors duration-200"
+                className="rounded-full px-4 py-2 text-sm text-slate-600 transition-colors hover:text-slate-950"
               >
                 {link.label}
-              </a>
+              </MagneticLink>
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
-            <a
+          <div className="hidden items-center gap-3 md:flex">
+            <MagneticLink
               href="#waitlist"
-              className="text-sm text-forge-text hover:text-white transition-colors"
+              className="rounded-full px-4 py-2 text-sm text-slate-700 transition-colors hover:text-slate-950"
             >
-              Sign In
-            </a>
-            <a
+              Sign in
+            </MagneticLink>
+            <MagneticLink
               href="#waitlist"
-              className="px-5 py-2.5 text-sm font-medium rounded-lg bg-gradient-to-r from-forge-cyan to-forge-blue text-white hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all duration-300"
+              className="rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white"
             >
-              Get Early Access
-            </a>
+              Get early access
+            </MagneticLink>
           </div>
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-forge-text p-2"
+          <motion.button
+            type="button"
+            whileTap={{ scale: 0.98, y: 1 }}
+            transition={spring}
+            onClick={() => setMobileOpen((value) => !value)}
+            className="rounded-full border border-slate-200 bg-white/70 p-2.5 text-slate-900 md:hidden"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              {mobileOpen ? (
-                <path d="M18 6L6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              )}
-            </svg>
-          </button>
+            {mobileOpen ? <X size={20} /> : <List size={20} />}
+          </motion.button>
         </div>
       </motion.nav>
 
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -24 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-forge-black/95 backdrop-blur-xl pt-20 px-6 md:hidden"
+            exit={{ opacity: 0, y: -24 }}
+            transition={spring}
+            className="fixed inset-x-4 top-24 z-40 rounded-[2rem] border border-slate-200 bg-white/92 p-6 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.4)] backdrop-blur-xl md:hidden"
           >
-            <div className="flex flex-col gap-6 mt-8">
+            <div className="flex flex-col divide-y divide-slate-200">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-2xl font-light text-forge-text hover:text-forge-cyan transition-colors"
+                  className="py-4 text-lg tracking-tight text-slate-800"
                 >
                   {link.label}
                 </a>
               ))}
+            </div>
+            <div className="mt-6 flex flex-col gap-3">
               <a
                 href="#waitlist"
                 onClick={() => setMobileOpen(false)}
-                className="mt-4 px-6 py-3 text-center rounded-lg bg-gradient-to-r from-forge-cyan to-forge-blue text-white font-medium"
+                className="rounded-full border border-slate-200 px-5 py-3 text-center text-sm font-medium text-slate-800"
               >
-                Get Early Access
+                Sign in
+              </a>
+              <a
+                href="#waitlist"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-full bg-[var(--color-accent)] px-5 py-3 text-center text-sm font-medium text-white"
+              >
+                Get early access
               </a>
             </div>
           </motion.div>

@@ -1,124 +1,131 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import ConsensusViz from './ConsensusViz';
+import {
+  ArrowRight,
+  CheckCircle,
+  Pulse,
+  ShieldCheck,
+} from "@phosphor-icons/react";
+import { motion } from "framer-motion";
+import { MagneticLink } from "@/components/MagneticButton";
+import ConsensusViz from "@/components/ConsensusViz";
+
+const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
+
+const trustSignals = [
+  { label: "PSZN consensus", value: "5-model quorum" },
+  { label: "Domain drift", value: "100 monitored domains" },
+  { label: "Execution gates", value: "Human approval in loop" },
+];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-forge-cyan/5 rounded-full blur-[120px] animate-[float_8s_ease-in-out_infinite]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-forge-purple/5 rounded-full blur-[120px] animate-[float_10s_ease-in-out_infinite_2s]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-forge-blue/3 rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left: Copy */}
-        <div>
+    <section className="section-shell min-h-[100dvh] overflow-hidden pt-28 md:pt-32">
+      <div className="grid min-h-[100dvh] items-center gap-12 py-10 md:grid-cols-[1.05fr_0.95fr] md:py-16">
+        <div className="order-2 flex flex-col justify-center md:order-1">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-forge-border/60 bg-forge-card/40 backdrop-blur-sm mb-8"
+            transition={spring}
+            className="glass-panel inline-flex w-fit items-center gap-3 rounded-full px-4 py-2"
           >
-            <span className="w-2 h-2 rounded-full bg-forge-cyan animate-pulse" />
-            <span className="text-xs font-medium text-forge-muted tracking-wide uppercase">
-              Now in Development — Early Access Open
+            <Pulse size={16} className="text-[var(--color-accent)]" weight="duotone" />
+            <span className="text-xs uppercase tracking-[0.24em] text-slate-600">
+              NeuralForge.fm is opening early access
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6"
+            transition={{ ...spring, delay: 0.08 }}
+            className="display-title mt-8 max-w-[12ch] text-left text-slate-950"
           >
-            The{' '}
-            <span className="gradient-text">Trust Layer</span>
-            <br />
-            for AI Agents
+            The trust layer for AI agents.
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg md:text-xl text-forge-muted leading-relaxed max-w-xl mb-10"
+            transition={{ ...spring, delay: 0.16 }}
+            className="body-copy mt-6 text-left"
           >
-            AI agents are making autonomous decisions — managing your email, executing tasks,
-            moving money. <span className="text-forge-text">Who verifies they&apos;re right?</span>
-            <br /><br />
-            NeuralForge&apos;s PSZN Engine delivers multi-model consensus scoring, domain drift detection,
-            and consent-gated execution. Trust, verified.
+            NeuralForge.fm intercepts agent actions before they hit email, finance,
+            code, or regulated workflows. PSZN consensus, domain drift detection,
+            and consent-gated execution keep autonomous systems inside verified bounds.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4"
+            transition={{ ...spring, delay: 0.24 }}
+            className="mt-10 flex flex-col gap-4 sm:flex-row"
           >
-            <a
+            <MagneticLink
               href="#waitlist"
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-forge-cyan to-forge-blue text-white font-semibold text-base hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] transition-all duration-300 text-center"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3.5 text-sm font-medium text-white"
             >
-              Get Early Access
-            </a>
-            <a
+              Get early access
+              <ArrowRight size={16} />
+            </MagneticLink>
+            <MagneticLink
               href="#enterprise"
-              className="px-8 py-4 rounded-xl border border-forge-border/60 text-forge-text font-medium text-base hover:border-forge-cyan/40 hover:bg-forge-card/40 transition-all duration-300 text-center"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/70 px-6 py-3.5 text-sm font-medium text-slate-900"
             >
-              Enterprise Solutions →
-            </a>
+              Explore enterprise
+              <ShieldCheck size={16} />
+            </MagneticLink>
           </motion.div>
 
-          {/* Trust stats */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex gap-10 mt-14"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...spring, delay: 0.32 }}
+            className="mt-12 grid gap-4 md:grid-cols-[1.1fr_0.9fr]"
           >
-            {[
-              { value: '100+', label: 'Mastery Domains' },
-              { value: '5-Layer', label: 'Verification' },
-              { value: '<200ms', label: 'Consensus Scoring' },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-2xl font-bold text-white">{stat.value}</div>
-                <div className="text-xs text-forge-muted mt-1">{stat.label}</div>
+            <div className="rounded-[1.75rem] border-t border-slate-300 pt-5">
+              <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1">
+                {trustSignals.map((signal) => (
+                  <div key={signal.label} className="flex items-start gap-3">
+                    <CheckCircle size={18} className="mt-0.5 text-[var(--color-accent)]" weight="fill" />
+                    <div>
+                      <div className="text-sm font-medium text-slate-900">{signal.label}</div>
+                      <div className="mt-1 text-sm text-slate-600">{signal.value}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="glass-panel rounded-[1.75rem] px-5 py-5">
+              <div className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-slate-500">
+                Live trust envelope
+              </div>
+              <div className="mt-4 grid grid-cols-[1fr_auto] gap-y-3 text-sm text-slate-700">
+                <span>Decision throughput</span>
+                <span className="font-mono text-slate-950">2,847/min</span>
+                <span>Verification latency</span>
+                <span className="font-mono text-slate-950">&lt;200ms</span>
+                <span>Escalations routed</span>
+                <span className="font-mono text-slate-950">4.2%</span>
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        {/* Right: Consensus Visualization */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="hidden lg:flex items-center justify-center"
+          initial={{ opacity: 0, x: 32 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ ...spring, delay: 0.16 }}
+          className="order-1 md:order-2"
         >
-          <ConsensusViz />
+          <div className="relative ml-auto max-w-[580px]">
+            <div className="absolute -left-8 top-10 h-40 w-40 rounded-full bg-blue-100 blur-3xl" />
+            <div className="absolute -right-10 bottom-14 h-44 w-44 rounded-full bg-slate-200 blur-3xl" />
+            <ConsensusViz />
+          </div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-forge-border/40 flex items-start justify-center pt-2"
-        >
-          <div className="w-1.5 h-1.5 rounded-full bg-forge-cyan/60" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

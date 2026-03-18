@@ -1,115 +1,90 @@
-'use client';
+"use client";
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import {
+  ArrowsClockwise,
+  ShieldCheck,
+  Timer,
+} from "@phosphor-icons/react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const steps = [
   {
-    num: '01',
-    title: 'Query Ingestion',
-    desc: 'Your AI agent submits a decision or output. NeuralForge intercepts it before execution, extracting discrete claims and action intents.',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <path d="M8 9h8M8 13h4" />
-      </svg>
-    ),
-    color: 'from-forge-cyan/20 to-forge-cyan/5',
-    borderColor: 'border-forge-cyan/20',
+    number: "01",
+    title: "Capture the proposed action",
+    desc: "NeuralForge sits in the execution path and normalizes the agent output into claims, intent, destination, and risk context.",
+    icon: Timer,
   },
   {
-    num: '02',
-    title: 'PSZN Consensus',
-    desc: 'Claims are verified across multiple AI models in parallel. Each model independently scores accuracy — no model speaks for another. Algorithmic consensus, not theater.',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v6l4 2" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-    color: 'from-forge-purple/20 to-forge-purple/5',
-    borderColor: 'border-forge-purple/20',
+    number: "02",
+    title: "Run PSZN verification",
+    desc: "Multiple models review the same claim independently. Agreement, divergence, and domain fit are scored before any tool call leaves the system.",
+    icon: ArrowsClockwise,
   },
   {
-    num: '03',
-    title: 'Verified Execution',
-    desc: 'Only claims that pass the consensus threshold proceed. Divergences are flagged. Domain drift is caught. Your consent gates every action. Trust, verified.',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <path d="M9 12l2 2 4-4" />
-      </svg>
-    ),
-    color: 'from-forge-green/20 to-forge-green/5',
-    borderColor: 'border-forge-green/20',
+    number: "03",
+    title: "Gate the execution path",
+    desc: "NeuralForge routes low-confidence actions into approval or fallback flows, preserving speed for safe decisions and friction for risky ones.",
+    icon: ShieldCheck,
   },
 ];
 
+const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
+
 export default function HowItWorks() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
-    <section id="how-it-works" className="py-32 relative" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="text-xs font-mono text-forge-purple tracking-[0.2em] uppercase mb-4 block">
-            How It Works
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Three Steps to{' '}
-            <span className="gradient-text">Verified Trust</span>
+    <section id="how-it-works" ref={ref} className="section-shell py-24 md:py-32">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={spring}
+        className="grid gap-8 md:grid-cols-[0.82fr_1.18fr]"
+      >
+        <div>
+          <p className="eyebrow">How it works</p>
+          <h2 className="display-title mt-4 max-w-[11ch] text-slate-950">
+            Verification stays in the flow.
           </h2>
-          <p className="text-lg text-forge-muted max-w-2xl mx-auto">
-            NeuralForge sits between your AI agents and the real world.
-            Every decision passes through verification before it executes.
+          <p className="body-copy mt-6">
+            The system is designed like an operating layer, not a report page.
+            Checks happen in-line, with enough context to stop bad actions and keep good ones moving.
           </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.num}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.15 * i }}
-              className="relative"
-            >
-              {/* Connector line */}
-              {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-[calc(100%+1rem)] w-[calc(100%-2rem)] h-px">
-                  <div className="w-full h-px bg-gradient-to-r from-forge-border/60 to-forge-border/20" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rotate-45 border-t border-r border-forge-border/40" />
-                </div>
-              )}
-
-              <div className={`glass-card rounded-2xl p-8 h-full border ${step.borderColor}`}>
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-6`}>
-                  {step.icon}
-                </div>
-
-                <div className="text-xs font-mono text-forge-muted mb-3 tracking-wider">
-                  STEP {step.num}
-                </div>
-
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {step.title}
-                </h3>
-
-                <p className="text-sm text-forge-muted leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            </motion.div>
-          ))}
         </div>
-      </div>
+
+        <div className="grid gap-6">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+
+            return (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, x: 28 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ ...spring, delay: index * 0.1 }}
+                className="grid gap-5 rounded-[2rem] border border-slate-200 bg-white/72 p-6 md:grid-cols-[120px_1fr] md:items-start md:p-8"
+              >
+                <div className="flex items-center gap-4 md:block">
+                  <div className="rounded-[1.5rem] border border-blue-100 bg-blue-50 p-3 text-[var(--color-accent)]">
+                    <Icon size={24} weight="duotone" />
+                  </div>
+                  <div className="font-mono text-xs uppercase tracking-[0.24em] text-slate-400 md:mt-5">
+                    Step {step.number}
+                  </div>
+                </div>
+                <div className="border-t border-slate-200 pt-5 md:border-t-0 md:border-l md:pl-8 md:pt-0">
+                  <h3 className="text-2xl font-semibold tracking-tight text-slate-950">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 text-slate-600">{step.desc}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </motion.div>
     </section>
   );
 }

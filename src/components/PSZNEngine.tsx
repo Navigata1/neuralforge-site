@@ -1,116 +1,89 @@
-'use client';
+"use client";
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+
+const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
 const features = [
   {
-    title: 'Multi-Model Orchestration',
-    desc: 'Queries 3-7 AI models simultaneously. Each model processes the same claim independently — no cross-contamination, no echo chambers.',
-    code: `// PSZN orchestrates parallel verification
-const results = await pszn.verify({
+    title: "Multi-model orchestration",
+    desc: "PSZN queries independent models in parallel so agreement is measured, not assumed.",
+    code: `const result = await pszn.verify({
   claim: agent.output,
-  models: ['gpt-5', 'claude', 'gemini', 'grok'],
+  models: ["gpt-5", "claude", "gemini", "grok"],
   threshold: 0.85,
-  mode: 'consensus'
+  mode: "consensus",
 });`,
   },
   {
-    title: 'Claim Extraction',
-    desc: 'Every response is decomposed into atomic, verifiable claims. Each claim is scored independently — no aggregate hand-waving.',
-    code: `// Atomic claim decomposition
-claims: [
+    title: "Claim extraction",
+    desc: "Responses are broken into atomic claims, then scored individually so weak assertions do not hide in strong summaries.",
+    code: `claims: [
   { text: "Revenue grew 23%", score: 0.94 },
   { text: "Q3 was strongest", score: 0.87 },
-  { text: "Margin expanded",  score: 0.71 } // ⚠️ flagged
+  { text: "Margin expanded", score: 0.71 },
 ]`,
   },
   {
-    title: 'Consensus Scoring',
-    desc: 'Semantic similarity clustering compares claims across models. Agreement is measured algorithmically, not assumed. Divergences surface as actionable signal.',
-    code: `// Algorithmic consensus — no model speaks for another
-consensus: {
-  agreement:  0.91,  // 4/4 models aligned
-  divergence: 0.09,  // Grok flagged margin claim
-  confidence: "HIGH",
-  action:     "PROCEED_WITH_CAVEAT"
-}`,
-  },
-  {
-    title: 'Divergence Detection',
-    desc: 'When models disagree, NeuralForge doesn\'t average it out. It surfaces the disagreement with full context — because knowing where AI is uncertain is more valuable than a fake confidence score.',
-    code: `// Divergence = valuable signal
-divergence: {
+    title: "Divergence surfaced early",
+    desc: "When one model disagrees, PSZN preserves the disagreement as signal and routes it toward review or consent gates.",
+    code: `divergence: {
   claim: "Margin expanded to 34%",
-  models_agree: ['gpt-5', 'claude', 'gemini'],
-  models_disagree: ['grok'],
-  grok_alternative: "Margin was 31.2% per SEC filing",
-  resolution: "HUMAN_REVIEW_REQUIRED"
+  models_agree: ["gpt-5", "claude", "gemini"],
+  models_disagree: ["grok"],
+  resolution: "HUMAN_REVIEW_REQUIRED",
 }`,
   },
 ];
 
 export default function PSZNEngine() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
-    <section id="pszn" className="py-32 relative" ref={ref}>
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-forge-purple/[0.02] to-transparent" />
-
-      <div className="max-w-7xl mx-auto px-6 relative">
+    <section id="pszn" ref={ref} className="section-shell py-24 md:py-32">
+      <div className="grid gap-10 md:grid-cols-[0.82fr_1.18fr]">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          transition={spring}
+          className="md:sticky md:top-28 md:self-start"
         >
-          <span className="text-xs font-mono text-forge-cyan tracking-[0.2em] uppercase mb-4 block">
-            PSZN Engine
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Pure Signal.{' '}
-            <span className="gradient-text">Zero Noise.</span>
+          <p className="eyebrow">PSZN engine</p>
+          <h2 className="display-title mt-4 max-w-[10ch] text-slate-950">
+            Pure signal. Measurable disagreement.
           </h2>
-          <p className="text-lg text-forge-muted max-w-3xl mx-auto">
-            The PSZN Engine is the verification core of NeuralForge. Every piece of data
-            comes from actual model responses — not simulated consensus. Not cosmetic verification theater.
-            Real epistemic value.
+          <p className="body-copy mt-6">
+            NeuralForge uses PSZN as a verification engine, not a decorative badge.
+            Every claim is decomposed, compared, clustered, and scored before it can drive execution.
           </p>
         </motion.div>
 
-        <div className="space-y-8">
-          {features.map((feature, i) => (
-            <motion.div
+        <div className="grid gap-6">
+          {features.map((feature, index) => (
+            <motion.article
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="glass-card rounded-2xl overflow-hidden"
+              transition={{ ...spring, delay: index * 0.1 }}
+              className="grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white/76 md:grid-cols-[0.9fr_1.1fr]"
             >
-              <div className="grid md:grid-cols-2">
-                {/* Text side */}
-                <div className="p-8 md:p-10 flex flex-col justify-center">
-                  <div className="text-xs font-mono text-forge-cyan/60 mb-3 tracking-wider">
-                    0{i + 1}
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    {feature.title}
-                  </h3>
-                  <p className="text-forge-muted leading-relaxed">
-                    {feature.desc}
-                  </p>
+              <div className="border-b border-slate-200 p-6 md:border-b-0 md:border-r md:p-8">
+                <div className="font-mono text-xs uppercase tracking-[0.24em] text-slate-400">
+                  0{index + 1}
                 </div>
-
-                {/* Code side */}
-                <div className="bg-forge-black/60 p-8 md:p-10 border-t md:border-t-0 md:border-l border-forge-border/30">
-                  <pre className="text-xs md:text-sm font-mono text-forge-muted leading-relaxed overflow-x-auto">
-                    <code>{feature.code}</code>
-                  </pre>
-                </div>
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-slate-950">
+                  {feature.title}
+                </h3>
+                <p className="mt-4 text-base leading-7 text-slate-600">{feature.desc}</p>
               </div>
-            </motion.div>
+              <div className="bg-slate-950 px-6 py-6 text-sm text-slate-200 md:px-8">
+                <pre className="overflow-x-auto font-mono leading-7 text-slate-300">
+                  <code>{feature.code}</code>
+                </pre>
+              </div>
+            </motion.article>
           ))}
         </div>
       </div>

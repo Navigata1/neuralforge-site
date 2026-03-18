@@ -1,46 +1,44 @@
-'use client';
+"use client";
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+
+const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
 const metrics = [
-  { value: '5', suffix: '+', label: 'AI Models in Consensus', desc: 'Every claim verified across multiple independent models' },
-  { value: '100', suffix: '', label: 'Mastery Domains', desc: 'From legal research to quantum physics — domain-aware verification' },
-  { value: '<200', suffix: 'ms', label: 'Verification Latency', desc: 'Real-time consensus scoring that doesn\'t slow down your agents' },
-  { value: '99.9', suffix: '%', label: 'Uptime SLA', desc: 'Enterprise-grade reliability for mission-critical verification' },
+  { value: "5", suffix: "+", label: "Models in consensus", desc: "Every claim verified across independent models" },
+  { value: "100", suffix: "", label: "Mastery domains", desc: "Domain-aware verification from law to quantum physics" },
+  { value: "<200", suffix: "ms", label: "Verification latency", desc: "Real-time scoring that keeps pace with your agents" },
+  { value: "99.9", suffix: "%", label: "Uptime SLA", desc: "Enterprise-grade reliability for critical pipelines" },
 ];
 
 export default function TrustMetrics() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 relative" ref={ref}>
-      <div className="absolute inset-0 bg-gradient-to-r from-forge-cyan/[0.02] via-forge-purple/[0.02] to-forge-pink/[0.02]" />
-
-      <div className="max-w-7xl mx-auto px-6 relative">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {metrics.map((metric, i) => (
-            <motion.div
-              key={metric.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="text-center"
-            >
-              <div className="text-4xl md:text-5xl font-extrabold text-white mb-2">
-                {metric.value}
-                <span className="text-forge-cyan">{metric.suffix}</span>
-              </div>
-              <div className="text-sm font-semibold text-forge-text mb-2">
-                {metric.label}
-              </div>
-              <div className="text-xs text-forge-muted leading-relaxed">
-                {metric.desc}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <section ref={ref} className="section-shell py-20">
+      <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-6">
+        {metrics.map((metric, i) => (
+          <motion.div
+            key={metric.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ ...spring, delay: 0.08 * i }}
+            className="border-t border-slate-200 pt-6"
+          >
+            <div className="font-mono text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
+              {metric.value}
+              <span className="text-[var(--color-accent)]">{metric.suffix}</span>
+            </div>
+            <div className="mt-2 text-sm font-medium text-slate-800">
+              {metric.label}
+            </div>
+            <div className="mt-1 text-xs leading-relaxed text-slate-500">
+              {metric.desc}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
