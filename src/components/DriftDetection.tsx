@@ -15,18 +15,29 @@ const domains = [
   { name: "Content Strategy", score: 72, status: "drift" },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: spring },
+};
+
 export default function DriftDetection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
     <section ref={ref} className="section-shell py-24 md:py-32">
-      <div className="grid gap-12 md:grid-cols-[1.15fr_0.85fr]">
-        <motion.div
-          initial={{ opacity: 0, x: -28 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={spring}
-        >
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="grid gap-12 md:grid-cols-[1.15fr_0.85fr]"
+      >
+        <motion.div variants={itemVariants}>
           <p className="eyebrow">Domain drift detection</p>
           <h2 className="display-title mt-4 max-w-[14ch] text-slate-950">
             100 domains. Boundaries enforced automatically.
@@ -37,25 +48,23 @@ export default function DriftDetection() {
             before it reaches the user or triggers an action.
           </p>
 
-          <div className="mt-10 space-y-4">
+          <motion.div variants={containerVariants} className="mt-10 space-y-4">
             {[
               "Real-time boundary monitoring across active domains",
               "Automatic alerts when agents exceed knowledge scope",
               "Configurable drift thresholds per domain and tier",
               "Historical drift analytics for compliance auditing",
             ].map((item) => (
-              <div key={item} className="flex items-start gap-3">
+              <motion.div key={item} variants={itemVariants} className="flex items-start gap-3">
                 <Check size={18} weight="bold" className="mt-0.5 shrink-0 text-[var(--color-accent)]" />
                 <span className="text-sm text-slate-700">{item}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 28 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ ...spring, delay: 0.15 }}
+          variants={itemVariants}
           className="glass-panel rounded-[2rem] p-6 md:p-8"
         >
           <div className="flex items-center justify-between mb-6">
@@ -68,13 +77,11 @@ export default function DriftDetection() {
             </div>
           </div>
 
-          <div className="space-y-3">
-            {domains.map((domain, i) => (
+          <motion.div variants={containerVariants} className="space-y-3">
+            {domains.map((domain) => (
               <motion.div
                 key={domain.name}
-                initial={{ opacity: 0, x: 16 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ ...spring, delay: 0.25 + i * 0.06 }}
+                variants={itemVariants}
                 className="flex items-center gap-3"
               >
                 <div className="w-32 truncate text-sm text-slate-700">
@@ -84,7 +91,7 @@ export default function DriftDetection() {
                   <motion.div
                     initial={{ width: 0 }}
                     animate={isInView ? { width: `${domain.score}%` } : { width: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 + i * 0.08, ease: "easeOut" }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                     className={`h-full rounded-full ${
                       domain.status === "stable"
                         ? "bg-[var(--color-accent)]"
@@ -108,14 +115,14 @@ export default function DriftDetection() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <div className="mt-6 border-t border-slate-200 pt-4 flex items-center justify-between text-[0.65rem] text-slate-400">
             <span>6 of 100 domains shown</span>
             <span className="font-mono">Updated 2s ago</span>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

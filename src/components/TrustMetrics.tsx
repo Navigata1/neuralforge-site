@@ -12,19 +12,32 @@ const metrics = [
   { value: "99.9", suffix: "%", label: "Uptime SLA", desc: "Enterprise-grade reliability for critical pipelines" },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: spring },
+};
+
 export default function TrustMetrics() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section ref={ref} className="section-shell py-20">
-      <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-6">
-        {metrics.map((metric, i) => (
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-6"
+      >
+        {metrics.map((metric) => (
           <motion.div
             key={metric.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ ...spring, delay: 0.08 * i }}
+            variants={itemVariants}
             className="border-t border-slate-200 pt-6"
           >
             <div className="font-mono text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
@@ -39,7 +52,7 @@ export default function TrustMetrics() {
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import SpotlightCard from "@/components/SpotlightCard";
 
 const incidents = [
   {
@@ -34,19 +35,29 @@ const incidents = [
 
 const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: spring },
+};
+
 export default function Problem() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
     <section id="problem" ref={ref} className="section-shell py-24 md:py-32">
-      <div className="grid gap-10 md:grid-cols-[0.78fr_1.22fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={spring}
-          className="md:pr-10"
-        >
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="grid gap-10 md:grid-cols-[0.78fr_1.22fr]"
+      >
+        <motion.div variants={itemVariants} className="md:pr-10">
           <p className="eyebrow">Where agents fail</p>
           <h2 className="display-title mt-4 max-w-[10ch] text-slate-950">
             Autonomy without verification breaks fast.
@@ -67,37 +78,40 @@ export default function Problem() {
           </div>
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-[1.05fr_0.95fr]">
+        <motion.div
+          variants={containerVariants}
+          className="grid gap-4 md:grid-cols-[1.05fr_0.95fr]"
+        >
           {incidents.map((incident, index) => {
             const Icon = incident.icon;
 
             return (
               <motion.div
                 key={incident.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ ...spring, delay: index * 0.08 }}
-                className={`glass-panel rounded-[1.9rem] p-6 ${
-                  index % 2 === 0 ? "md:translate-y-8" : ""
-                }`}
+                variants={itemVariants}
+                className={index % 2 === 0 ? "md:translate-y-8" : ""}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="rounded-2xl border border-blue-100 bg-blue-50 p-3 text-[var(--color-accent)]">
-                    <Icon size={22} weight="duotone" />
+                <SpotlightCard className="glass-panel h-full">
+                  <div className="p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="rounded-2xl border border-blue-100 bg-blue-50 p-3 text-[var(--color-accent)]">
+                        <Icon size={22} weight="duotone" />
+                      </div>
+                      <div className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-slate-400">
+                        0{index + 1}
+                      </div>
+                    </div>
+                    <h3 className="mt-8 text-xl font-semibold tracking-tight text-slate-950">
+                      {incident.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{incident.desc}</p>
                   </div>
-                  <div className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-slate-400">
-                    0{index + 1}
-                  </div>
-                </div>
-                <h3 className="mt-8 text-xl font-semibold tracking-tight text-slate-950">
-                  {incident.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{incident.desc}</p>
+                </SpotlightCard>
               </motion.div>
             );
           })}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

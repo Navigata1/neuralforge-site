@@ -31,6 +31,16 @@ const steps = [
 
 const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: 28 },
+  visible: { opacity: 1, x: 0, transition: spring },
+};
+
 export default function HowItWorks() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-120px" });
@@ -38,12 +48,12 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" ref={ref} className="section-shell py-24 md:py-32">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={spring}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
         className="grid gap-8 md:grid-cols-[0.82fr_1.18fr]"
       >
-        <div>
+        <motion.div variants={itemVariants}>
           <p className="eyebrow">How it works</p>
           <h2 className="display-title mt-4 max-w-[11ch] text-slate-950">
             Verification stays in the flow.
@@ -52,18 +62,16 @@ export default function HowItWorks() {
             The system is designed like an operating layer, not a report page.
             Checks happen in-line, with enough context to stop bad actions and keep good ones moving.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6">
-          {steps.map((step, index) => {
+        <motion.div variants={containerVariants} className="grid gap-6">
+          {steps.map((step) => {
             const Icon = step.icon;
 
             return (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, x: 28 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ ...spring, delay: index * 0.1 }}
+                variants={itemVariants}
                 className="grid gap-5 rounded-[2rem] border border-slate-200 bg-white/72 p-6 md:grid-cols-[120px_1fr] md:items-start md:p-8"
               >
                 <div className="flex items-center gap-4 md:block">
@@ -83,7 +91,7 @@ export default function HowItWorks() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );

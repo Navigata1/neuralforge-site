@@ -6,6 +6,16 @@ import { Check } from "@phosphor-icons/react";
 
 const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: spring },
+};
+
 export default function Waitlist() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -20,21 +30,21 @@ export default function Waitlist() {
   return (
     <section id="waitlist" ref={ref} className="section-shell py-24 md:py-32">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={spring}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
         className="mx-auto max-w-2xl text-center"
       >
-        <p className="eyebrow">Early access</p>
-        <h2 className="display-title mt-4 text-slate-950">
+        <motion.p variants={itemVariants} className="eyebrow">Early access</motion.p>
+        <motion.h2 variants={itemVariants} className="display-title mt-4 text-slate-950">
           Be first to verify trust
-        </h2>
-        <p className="body-copy mx-auto mt-4 text-center">
+        </motion.h2>
+        <motion.p variants={itemVariants} className="body-copy mx-auto mt-4 text-center">
           NeuralForge is in active development. Join the waitlist for early access
           to the trust layer AI agents have been missing.
-        </p>
+        </motion.p>
 
-        <div className="mt-10">
+        <motion.div variants={itemVariants} className="mt-10">
           {submitted ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -59,17 +69,17 @@ export default function Waitlist() {
               />
               <button
                 type="submit"
-                className="rounded-full bg-[var(--color-accent)] px-8 py-3.5 text-sm font-medium text-white active:scale-[0.98] active:translate-y-px transition-transform whitespace-nowrap"
+                className="rounded-full bg-[var(--color-accent)] px-8 py-3.5 text-sm font-medium text-white transition-transform active:scale-[0.97] active:translate-y-[1px] whitespace-nowrap"
               >
                 Join waitlist
               </button>
             </form>
           )}
-        </div>
+        </motion.div>
 
-        <p className="mt-6 text-xs text-slate-400">
+        <motion.p variants={itemVariants} className="mt-6 text-xs text-slate-400">
           No spam. Unsubscribe anytime. We respect your inbox more than most agents do.
-        </p>
+        </motion.p>
       </motion.div>
     </section>
   );

@@ -9,6 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { MagneticLink } from "@/components/MagneticButton";
 import ConsensusViz from "@/components/ConsensusViz";
+import TextScramble from "@/components/TextScramble";
 
 const spring = { type: "spring", stiffness: 100, damping: 20 } as const;
 
@@ -18,15 +19,28 @@ const trustSignals = [
   { label: "Execution gates", value: "Human approval in loop" },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: spring },
+};
+
 export default function Hero() {
   return (
     <section className="section-shell min-h-[100dvh] overflow-hidden pt-28 md:pt-32">
       <div className="grid min-h-[100dvh] items-center gap-12 py-10 md:grid-cols-[1.05fr_0.95fr] md:py-16">
-        <div className="order-2 flex flex-col justify-center md:order-1">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="order-2 flex flex-col justify-center md:order-1"
+        >
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={spring}
+            variants={itemVariants}
             className="glass-panel inline-flex w-fit items-center gap-3 rounded-full px-4 py-2"
           >
             <Pulse size={16} className="text-[var(--color-accent)]" weight="duotone" />
@@ -36,18 +50,14 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.08 }}
+            variants={itemVariants}
             className="display-title mt-8 max-w-[12ch] text-left text-slate-950"
           >
-            The trust layer for AI agents.
+            <TextScramble text="The trust layer for AI agents." />
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.16 }}
+            variants={itemVariants}
             className="body-copy mt-6 text-left"
           >
             NeuralForge.fm intercepts agent actions before they hit email, finance,
@@ -56,21 +66,19 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.24 }}
+            variants={itemVariants}
             className="mt-10 flex flex-col gap-4 sm:flex-row"
           >
             <MagneticLink
               href="#waitlist"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3.5 text-sm font-medium text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3.5 text-sm font-medium text-white transition-transform active:scale-[0.97] active:translate-y-[1px]"
             >
               Get early access
               <ArrowRight size={16} />
             </MagneticLink>
             <MagneticLink
               href="#enterprise"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/70 px-6 py-3.5 text-sm font-medium text-slate-900"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/70 px-6 py-3.5 text-sm font-medium text-slate-900 transition-transform active:scale-[0.97] active:translate-y-[1px]"
             >
               Explore enterprise
               <ShieldCheck size={16} />
@@ -78,9 +86,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.32 }}
+            variants={itemVariants}
             className="mt-12 grid gap-4 md:grid-cols-[1.1fr_0.9fr]"
           >
             <div className="rounded-[1.75rem] border-t border-slate-300 pt-5">
@@ -111,7 +117,7 @@ export default function Hero() {
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, x: 32 }}

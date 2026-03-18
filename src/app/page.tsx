@@ -1,5 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
+import KineticMarquee from '@/components/KineticMarquee';
 import Problem from '@/components/Problem';
 import HowItWorks from '@/components/HowItWorks';
 import PSZNEngine from '@/components/PSZNEngine';
@@ -16,6 +17,7 @@ export default function Home() {
     <main className="relative">
       <Navigation />
       <Hero />
+      <KineticMarquee />
       <Problem />
       <HowItWorks />
       <PSZNEngine />

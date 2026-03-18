@@ -60,10 +60,10 @@ export function MagneticButton({
       onClick={onClick}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      whileTap={{ scale: 0.98, y: 1 }}
+      whileTap={{ scale: 0.97, y: 1 }}
       transition={spring}
       style={{ x: translateX, y: translateY, rotateX, rotateY, boxShadow }}
-      className={className}
+      className={`transition-transform active:scale-[0.97] active:translate-y-[1px] ${className}`}
     >
       {children}
     </motion.button>
@@ -86,10 +86,10 @@ export function MagneticLink({
     <motion.div
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      whileTap={{ scale: 0.98, y: 1 }}
+      whileTap={{ scale: 0.97, y: 1 }}
       transition={spring}
       style={{ x: translateX, y: translateY, rotateX, rotateY, boxShadow }}
-      className="inline-flex"
+      className="inline-flex transition-transform active:scale-[0.97] active:translate-y-[1px]"
     >
       <Link href={href} className={className}>
         {children}
