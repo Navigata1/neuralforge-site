@@ -15,7 +15,7 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
         {/* Left: Copy */}
-        <div>
+        <div className="text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
           >
             <a
               href="#waitlist"
@@ -78,7 +78,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex gap-10 mt-14"
+            className="flex gap-10 mt-14 justify-center lg:justify-start"
           >
             {[
               { value: '100+', label: 'Mastery Domains' },

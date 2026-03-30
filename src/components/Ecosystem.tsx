@@ -75,8 +75,8 @@ export default function Ecosystem() {
           {layers.map((layer, i) => (
             <motion.div
               key={layer.name}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.15 * i }}
               className="relative"
             >

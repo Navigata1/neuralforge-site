@@ -26,15 +26,15 @@ export default function DriftDetection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-xs font-mono text-forge-green tracking-[0.2em] uppercase mb-4 block">
+            <span className="text-xs font-mono text-forge-green tracking-[0.2em] uppercase mb-4 block text-center lg:text-left">
               Domain Drift Detection
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center lg:text-left">
               100 Domains.
               <br />
               <span className="gradient-text">Zero Blind Spots.</span>
             </h2>
-            <p className="text-lg text-forge-muted leading-relaxed mb-8">
+            <p className="text-lg text-forge-muted leading-relaxed mb-8 text-center lg:text-left">
               AI agents don&apos;t know their boundaries. A legal research agent can silently
               drift into medical advice. A financial analyst can start making engineering claims.
               NeuralForge&apos;s Domain Drift Detector uses on-device ML to monitor knowledge

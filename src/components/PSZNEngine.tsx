@@ -91,7 +91,7 @@ export default function PSZNEngine() {
             >
               <div className="grid md:grid-cols-2">
                 {/* Text side */}
-                <div className="p-8 md:p-10 flex flex-col justify-center">
+                <div className="p-8 md:p-10 flex flex-col justify-center text-center md:text-left">
                   <div className="text-xs font-mono text-forge-cyan/60 mb-3 tracking-wider">
                     0{i + 1}
                   </div>
