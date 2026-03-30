@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 
 const models = [
   { name: 'GPT-5', color: '#00d4ff', angle: 0 },
-  { name: 'Claude', color: '#8b5cf6', angle: 72 },
+  { name: 'Claude', color: '#3366ff', angle: 72 },
   { name: 'Gemini', color: '#22d3ee', angle: 144 },
-  { name: 'Grok', color: '#d946ef', angle: 216 },
-  { name: 'DeepSeek', color: '#3366ff', angle: 288 },
+  { name: 'Grok', color: '#66b2ff', angle: 216 },
+  { name: 'DeepSeek', color: '#0099cc', angle: 288 },
 ];
 
 export default function ConsensusViz() {
@@ -118,7 +118,7 @@ export default function ConsensusViz() {
                 textAnchor="middle"
                 fill="rgba(224,224,255,0.6)"
                 fontSize="11"
-                fontFamily="Inter, sans-serif"
+                fontFamily="Geist, sans-serif"
                 fontWeight="500"
               >
                 {model.name}

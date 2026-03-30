@@ -8,22 +8,39 @@ const layers = [
     name: 'NeuralForge.fm',
     role: 'Distribution Layer',
     desc: 'The storefront and delivery network. Where users discover, access, and manage their NeuralForge experience. Consumer and enterprise portals, account management, and marketplace.',
-    color: '#d946ef',
-    icon: '🌐',
+    color: '#00d4ff',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
   },
   {
     name: 'RLAForge.app',
     role: 'The OS Kernel',
     desc: 'MIT Research-Level Accuracy AI Operating System. 100 mastery domains, tiered access control, session management, and the OCEAN output framework. The brain that orchestrates everything.',
-    color: '#8b5cf6',
-    icon: '⚙️',
+    color: '#3366ff',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3366ff" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </svg>
+    ),
   },
   {
     name: 'PSZN.dev',
     role: 'Consensus Engine Core',
     desc: 'Pure Signal, Zero Noise. The verification engine that powers everything above it. Multi-model orchestration, claim extraction, semantic clustering, consensus scoring, and divergence detection.',
-    color: '#00d4ff',
-    icon: '🔬',
+    color: '#22d3ee',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    ),
   },
 ];
 
@@ -40,7 +57,7 @@ export default function Ecosystem() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-xs font-mono text-forge-pink tracking-[0.2em] uppercase mb-4 block">
+          <span className="text-xs font-mono text-forge-cyan tracking-[0.2em] uppercase mb-4 block">
             Ecosystem
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -74,7 +91,7 @@ export default function Ecosystem() {
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
                   <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
                     style={{ background: `${layer.color}10` }}
                   >
                     {layer.icon}

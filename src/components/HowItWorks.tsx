@@ -22,14 +22,15 @@ const steps = [
     title: 'PSZN Consensus',
     desc: 'Claims are verified across multiple AI models in parallel. Each model independently scores accuracy — no model speaks for another. Algorithmic consensus, not theater.',
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3366ff" strokeWidth="1.5" strokeLinecap="round">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 6v6l4 2" />
         <circle cx="12" cy="12" r="3" />
       </svg>
     ),
-    color: 'from-forge-purple/20 to-forge-purple/5',
-    borderColor: 'border-forge-purple/20',
+
+    color: 'from-forge-blue/20 to-forge-blue/5',
+    borderColor: 'border-forge-blue/20',
   },
   {
     num: '03',
@@ -59,7 +60,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-xs font-mono text-forge-purple tracking-[0.2em] uppercase mb-4 block">
+          <span className="text-xs font-mono text-forge-cyan tracking-[0.2em] uppercase mb-4 block">
             How It Works
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">

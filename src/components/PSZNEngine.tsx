@@ -57,7 +57,7 @@ export default function PSZNEngine() {
   return (
     <section id="pszn" className="py-32 relative" ref={ref}>
       {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-forge-purple/[0.02] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-forge-blue/[0.02] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
         <motion.div

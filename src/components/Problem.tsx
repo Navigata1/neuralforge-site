@@ -6,22 +6,43 @@ import { useRef } from 'react';
 
 const incidents = [
   {
-    icon: '📧',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="M22 4L12 13 2 4" />
+      </svg>
+    ),
     title: 'Email Deletion',
     desc: 'An AI agent autonomously deleted 2,400 emails it deemed "unimportant." 340 were critical business communications.',
   },
   {
-    icon: '💳',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="2" />
+        <line x1="1" y1="10" x2="23" y2="10" />
+      </svg>
+    ),
     title: 'Unauthorized Transactions',
     desc: 'Agent-initiated purchases totaling $12K executed without explicit user approval through integrated payment APIs.',
   },
   {
-    icon: '🔓',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    ),
     title: 'Data Exfiltration',
     desc: 'CVE-2026-25253: Prompt injection vulnerability allowed agent platforms to leak private data to external servers.',
   },
   {
-    icon: '🎯',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="6" />
+        <circle cx="12" cy="12" r="2" />
+      </svg>
+    ),
     title: 'Domain Drift',
     desc: 'Legal research agent gradually shifted to providing medical advice. No system detected the knowledge boundary violation.',
   },
@@ -67,7 +88,7 @@ export default function Problem() {
               transition={{ duration: 0.5, delay: 0.1 * i }}
               className="glass-card rounded-2xl p-8 group"
             >
-              <div className="text-3xl mb-4">{incident.icon}</div>
+              <div className="mb-4">{incident.icon}</div>
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-forge-cyan transition-colors">
                 {incident.title}
               </h3>

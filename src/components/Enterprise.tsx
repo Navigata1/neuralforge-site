@@ -16,7 +16,7 @@ const capabilities = [
   },
   {
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="1.5">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3366ff" strokeWidth="1.5">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
         <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
       </svg>
@@ -37,7 +37,7 @@ const capabilities = [
   },
   {
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d946ef" strokeWidth="1.5">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" strokeWidth="1.5">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 6v6l4 2" />
       </svg>
@@ -85,7 +85,7 @@ export default function Enterprise() {
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <span className="text-xs font-mono text-forge-pink tracking-[0.2em] uppercase mb-4 block">
+          <span className="text-xs font-mono text-forge-cyan tracking-[0.2em] uppercase mb-4 block">
             Enterprise
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -104,7 +104,7 @@ export default function Enterprise() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="glass-card rounded-2xl p-8 md:p-12 mb-16 border border-forge-purple/20"
+          className="glass-card rounded-2xl p-8 md:p-12 mb-16 border border-forge-cyan/20"
         >
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -119,13 +119,13 @@ export default function Enterprise() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="#waitlist"
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-forge-purple to-forge-pink text-white font-semibold hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all text-center text-sm"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-forge-cyan to-forge-blue text-white font-semibold hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all text-center text-sm"
                 >
                   Request Enterprise Demo
                 </a>
                 <a
                   href="#waitlist"
-                  className="px-6 py-3 rounded-xl border border-forge-border/60 text-forge-text font-medium hover:border-forge-purple/40 transition-all text-center text-sm"
+                  className="px-6 py-3 rounded-xl border border-forge-border/60 text-forge-text font-medium hover:border-forge-cyan/40 transition-all text-center text-sm"
                 >
                   Talk to Sales
                 </a>

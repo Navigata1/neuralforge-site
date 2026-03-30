@@ -16,7 +16,7 @@ export default function TrustMetrics() {
 
   return (
     <section className="py-24 relative" ref={ref}>
-      <div className="absolute inset-0 bg-gradient-to-r from-forge-cyan/[0.02] via-forge-purple/[0.02] to-forge-pink/[0.02]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-forge-cyan/[0.02] via-forge-blue/[0.02] to-forge-cyan/[0.02]" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

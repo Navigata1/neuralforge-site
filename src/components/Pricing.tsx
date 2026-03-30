@@ -53,7 +53,7 @@ const tiers = [
     ],
     cta: 'Get Nexus',
     popular: true,
-    gradient: 'from-forge-cyan/20 to-forge-purple/10',
+    gradient: 'from-forge-cyan/20 to-forge-cyan/5',
   },
   {
     name: 'Apex',
@@ -71,7 +71,7 @@ const tiers = [
     ],
     cta: 'Go Apex',
     popular: false,
-    gradient: 'from-forge-purple/20 to-forge-pink/10',
+    gradient: 'from-forge-cyan/15 to-forge-blue/5',
   },
   {
     name: 'Pantheon',
@@ -89,7 +89,7 @@ const tiers = [
     ],
     cta: 'Join Pantheon',
     popular: false,
-    gradient: 'from-forge-pink/20 to-forge-purple/10',
+    gradient: 'from-forge-blue/15 to-forge-cyan/5',
   },
 ];
 
@@ -107,7 +107,7 @@ export default function Pricing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-xs font-mono text-forge-purple tracking-[0.2em] uppercase mb-4 block">
+          <span className="text-xs font-mono text-forge-cyan tracking-[0.2em] uppercase mb-4 block">
             Pricing
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -155,7 +155,7 @@ export default function Pricing() {
               }`}
             >
               {tier.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-forge-cyan to-forge-purple rounded-full text-[10px] font-bold text-white tracking-wider uppercase">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-forge-cyan rounded-full text-[10px] font-bold text-forge-black tracking-wider uppercase">
                   Most Popular
                 </div>
               )}
