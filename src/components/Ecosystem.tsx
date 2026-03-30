@@ -50,7 +50,7 @@ export default function Ecosystem() {
 
   return (
     <section id="ecosystem" className="py-32 relative" ref={ref}>
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
